@@ -1,0 +1,15 @@
+{
+    "name": "pragma/forms",
+    "description": "The Pragma Module for handling forms in Pragma Framework",
+    "licence": "MIT",
+    "keywords": ["pragma", "framework", "forms", "csrf"],
+    "authors": [
+        {"name": "Cyril Rouyer", "email": ""},
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+     "autoload": {
+        "psr-0" : { "Pragma\\Forms" : "." }
+    }
+}
