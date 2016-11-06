@@ -1,5 +1,5 @@
 {
-    "name": "pragma/forms",
+    "name": "pragma-framework/forms",
     "description": "The Pragma Module for handling forms in Pragma Framework",
     "licence": "MIT",
     "keywords": ["pragma", "framework", "forms", "csrf"],
