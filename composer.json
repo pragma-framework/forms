@@ -1,7 +1,7 @@
 {
     "name": "pragma-framework/forms",
     "description": "The Pragma Module for handling forms in Pragma Framework",
-    "licence": "MIT",
+    "license": "MIT",
     "keywords": ["pragma", "framework", "forms", "csrf"],
     "authors": [
         {"name": "Cyril Rouyer"}
