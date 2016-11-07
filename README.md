@@ -1,3 +1,3 @@
 # Pragma Forms
 
-Outil permettant la construction rapide de formulaires HTML
+Tool alowing quick building of HTML forms
