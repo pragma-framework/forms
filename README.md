@@ -1,3 +1,3 @@
 # Pragma Forms
 
-Tool alowing quick building of HTML forms
+Tool allowing quick building of HTML forms
