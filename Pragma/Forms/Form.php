@@ -119,7 +119,7 @@ class Form{
 			if( ! isset($this->boxes[$rawname])){
 				$this->boxes[$rawname] = $rawname;
 				if(!$deferred){
-					$html .= $this->hidden_field(['name' => $rawname]);
+					$html .= $this->hidden_field(['name' => $field->name]);
 				}
 			}
 		}
