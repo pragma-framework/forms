@@ -1,7 +1,7 @@
 <?php
 namespace Pragma\Forms\Fields;
 
-use AbstractTextableField;
+use Pragma\Forms\Fields\AbstractTextableField;
 
 class FileField extends AbstractTextableField{
 	public function __construct($params = []){
