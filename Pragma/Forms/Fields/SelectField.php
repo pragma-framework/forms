@@ -25,7 +25,7 @@ class SelectField implements FieldsInterface{
 
 		$field = '<select name="'.$this->name.'" id="'.$this->id.'" ';
 		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';
-		$field .= ' '.$this->additionnal_attributes. '>';
+		$field .= ' '.$this->additional_attributes. '>';
 
 		if(!is_null($this->empty_message)){ //the message can be empty if it's the developper's wish.
 			$field .= '<option value="">'.$this->empty_message.'</option>';

@@ -23,7 +23,7 @@ class SubmitField implements FieldsInterface{
 
 		$field = '<input type="submit" name="'.$this->name.'" id="'.$this->id.'" value="'.$this->value.'" ';
 		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';
-		$field .= ' '.$this->additionnal_attributes. ' />';
+		$field .= ' '.$this->additional_attributes. ' />';
 		return $field;
 	}
 }

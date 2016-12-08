@@ -37,7 +37,7 @@ class AbstractCheckableField implements FieldsInterface{
 		else if( $this->checked ) $field .= ' checked="checked" ';
 
 
-		$field .= ' '.$this->additionnal_attributes. ' />';
+		$field .= ' '.$this->additional_attributes. ' />';
 		if( ! is_null($this->dom_extension) ) $field .= $this->dom_extension;
 
 		return $field;

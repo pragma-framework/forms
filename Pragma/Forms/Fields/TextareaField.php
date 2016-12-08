@@ -23,7 +23,7 @@ class TextareaField implements FieldsInterface{
 
 		$field =  '<textarea type="text" name="'.$this->name.'" id="'.$this->id.'" ';
 		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';
-		$field .= ' '.$this->additionnal_attributes. '>';
+		$field .= ' '.$this->additional_attributes. '>';
 
 		$column = $this->db_field;
 		if( ! is_null($this->db_field) && ! empty($this->db_field) && ! is_null($object) && isset($object->$column) ){
