@@ -87,6 +87,10 @@ class LayeredForm extends Form{
 		return $this->blocks;
 	}
 
+	public function setLayout($layout){
+		$this->layout = $layout;
+	}
+
 	public function build(){
 		$view = new View();//new instance
 		$view->setLayout($this->layout);
