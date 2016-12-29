@@ -9,6 +9,18 @@ class LayeredForm extends Form{
 	protected $blocks = [];
 	protected $layout = null;
 
+	protected $params = [
+		'name' => 'pragma_form',
+		'id'	=> 'pragma_form',
+		'object' => null,
+		'action' => '#',
+		'method' => 'POST',
+		'additional_js' => '',
+		'enctype' => false,
+		'additional_attributes' => null,
+		'cancel_url' => null
+	];
+
 	public function __construct($params = []){
 		parent::__construct($params);
 		$this->blocks['default'] = new LayeredFormBlock('default');
