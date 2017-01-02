@@ -4,12 +4,14 @@ namespace Pragma\Forms\CSRFTagsManager;
 class CSRFTag{
 	protected $tag = '';
 	protected $date;
+	protected $permanent;
 	protected $fields = [];
 
 
-	public function __construct(){
+	public function __construct($permanent = false){
 		$this->date = time();
 		$this->tag = uniqid('', true);
+		$this->permanent = $permanent;
 	}
 
 	public function storeField($fieldname){
@@ -26,6 +28,7 @@ class CSRFTag{
 		return [
 			'date' => $this->date,
 			'control' => md5(implode('', array_keys($this->fields))),
+			'permanent' => $this->permanent
 		];
 	}
 }

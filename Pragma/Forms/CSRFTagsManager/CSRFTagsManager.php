@@ -35,8 +35,8 @@ class CSRFTagsManager{
 		return self::$manager;
 	}
 
-	public function prepareTag(){
-		return new CSRFTag();
+	public function prepareTag($permanent = false){
+		return new CSRFTag($permanent);
 	}
 
 	public function storeTag(CSRFTag $tag){
@@ -57,7 +57,9 @@ class CSRFTagsManager{
 		$names = array_keys($params);
 		sort($names);
 		if( md5(implode('', $names)) == $this->tags[$tag]['control'] ){
-			unset($this->tags[$tag]);
+			if( ! $this->tags[$tag]['permanent'] ){
+				unset($this->tags[$tag]);
+			}
 			return true;
 		}
 		else{
@@ -66,9 +68,9 @@ class CSRFTagsManager{
 	}
 
 	//usefull for Ajax
-	public static function emulateForm($fields){
+	public static function emulateForm($fields, $permanent = false){
 		$manager = self::getManager();
-		$tag = $manager->prepareTag();
+		$tag = $manager->prepareTag($permanent);
 		sort($fields);
 		foreach($fields as $name){
 			$tag->storeField($name);
