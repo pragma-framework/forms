@@ -67,7 +67,8 @@ class CSRFTagsManager{
 		}
 	}
 
-	//usefull for Ajax
+	//useful for Ajax
+	//Be careful, use $permanent "true" with precautions
 	public static function emulateForm($fields, $permanent = false){
 		$manager = self::getManager();
 		$tag = $manager->prepareTag($permanent);
