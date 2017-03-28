@@ -43,7 +43,7 @@ class CSRFTagsManager{
 		$this->tags[$tag->getTag()] = $tag->dump();
 	}
 
-	public function checkTag($tag, $params){
+	public function checkTag($tag, $params, $files = []){
 		if( empty($tag) || ! isset($this->tags[$tag]) ){
 			throw new CSRFTagsException(CSRFTagsException::UNKNOWN_TAG_MESS, CSRFTagsException::UNKNOWN_TAG);
 		}
@@ -54,7 +54,9 @@ class CSRFTagsManager{
 
 		//check fields
 		$params = !isset($params) ? [] : $params;
-		$names = array_keys($params);
+		$files = !isset($files) ? [] : $files;
+		$names = array_merge(array_keys($params), array_keys($files));
+
 		sort($names);
 		if( md5(implode('', $names)) == $this->tags[$tag]['control'] ){
 			if( ! $this->tags[$tag]['permanent'] ){
