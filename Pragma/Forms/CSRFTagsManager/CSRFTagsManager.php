@@ -72,15 +72,20 @@ class CSRFTagsManager{
 	//useful for Ajax
 	//Be careful, use $permanent "true" with precautions
 	public static function emulateForm($fields, $permanent = false){
-		$manager = self::getManager();
-		$tag = $manager->prepareTag($permanent);
-		sort($fields);
-		foreach($fields as $name){
-			$tag->storeField($name);
-		}
-		$manager->tags[$tag->getTag()] = $tag->dump();
+		if(static::isEnabled()){
+			$manager = self::getManager();
+			$tag = $manager->prepareTag($permanent);
+			sort($fields);
+			foreach($fields as $name){
+				$tag->storeField($name);
+			}
+			$manager->tags[$tag->getTag()] = $tag->dump();
 
-		return $tag->getTag();
+			return $tag->getTag();
+		}
+		else{
+			return null;
+		}
 	}
 
 	//delete tokens when there are too old
