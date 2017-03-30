@@ -15,13 +15,18 @@ class SelectField implements FieldsInterface{
 		'value' =>  null,
 		'classes' => '',
 		'additional_attributes' => '',
-		'dom_extension' =>  null
+		'dom_extension' =>  null,
+		'multiple' => false
 	];
 
 	protected $type = 'select';
 
 	public function render(){
 		$object = isset($this->form) && !empty($this->form->object) ? $this->form->object : null;
+
+		if($this->multiple && substr_compare($this->name, "[]", strlen($this->name)-2, 2) !== 0){
+			$this->name .= '[]';
+		}
 
 		$field = '<select name="'.$this->name.'" id="'.$this->id.'" ';
 		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';

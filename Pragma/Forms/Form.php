@@ -104,10 +104,22 @@ class Form{
 
 	public function select_field($params = [], $deferred = false){
 		$field = Fields\SelectField::getField($params)->setForm($this);
+		$html = "";
 		if(CSRFTagsManager::isEnabled()){
 			$this->tag->storeField($field->name);
+			//Special issue if the select is multiple : The field may not be present in the query
+			//if no option has been selected by the user
+			if($field->multiple)){
+				$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+				if( ! isset($this->boxes[$rawname])){
+					$this->boxes[$rawname] = $rawname;
+					if(!$deferred){
+						$html .= $this->hidden_field(['name' => $field->name]);
+					}
+				}
+			}
 		}
-		return ! $deferred ? $field->render() : $field;
+		return ! $deferred ? $html."\n".$field->render() : $field;
 	}
 
 	public function checkbox_field($params = [], $deferred = false){
