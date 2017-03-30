@@ -109,7 +109,7 @@ class Form{
 			$this->tag->storeField($field->name);
 			//Special issue if the select is multiple : The field may not be present in the query
 			//if no option has been selected by the user
-			if($field->multiple)){
+			if($field->multiple){
 				$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
 				if( ! isset($this->boxes[$rawname])){
 					$this->boxes[$rawname] = $rawname;
