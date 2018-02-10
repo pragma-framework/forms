@@ -1,7 +1,7 @@
 <?php
 $block = $object;
 ?>
-<div class="layered-form-block" id="<?= $block->getId(); ?>">
+<div class="<?= $block->getClasses(); ?>" id="<?= $block->getId(); ?>">
 	<?php
 	if($block->getLabel() != ''){
 		?>

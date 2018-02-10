@@ -7,10 +7,11 @@ class LayeredFormBlock{
 	protected $label = '';
 	protected $id = '';
 	protected $headerLevel = self::DEFAULT_HEADER_LEVEL;
+	protected $classes = '';
 
 	protected $layout = null;
 
-	public function __construct($id, $label = '', $hlevel = self::DEFAULT_HEADER_LEVEL){
+	public function __construct($id, $label = '', $hlevel = self::DEFAULT_HEADER_LEVEL, $classes = 'layered-form-block'){
 		$this->id = $id;
 		$this->label = $label;
 		$this->headerLevel = $hlevel;
@@ -53,5 +54,12 @@ class LayeredFormBlock{
 		return $this->fields;
 	}
 
+    public function setClasses($classes){
+        $this->classes = $classes;
+    }
+
+    public function getClasses(){
+        return $this->classes;
+    }
 
 }
