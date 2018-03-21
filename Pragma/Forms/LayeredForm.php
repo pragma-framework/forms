@@ -23,7 +23,9 @@ class LayeredForm extends Form{
 
 	public function __construct($params = []){
 		parent::__construct($params);
-		$this->blocks['default'] = new LayeredFormBlock('default');
+		$defaultBlock = new LayeredFormBlock('default');
+		$defaultBlock->setForm($this);
+		$this->blocks['default'] = $defaultBlock;
 		$this->layout = __DIR__ . '/Views/default_form_layout.tpl.php';
 	}
 
@@ -73,7 +75,9 @@ class LayeredForm extends Form{
 
 	public function addBlock($id, $label = '', $hlevel = LayeredFormBlock::DEFAULT_HEADER_LEVEL){
 		if(!isset($this->blocks[$id])){
-			$this->blocks[$id] = new LayeredFormBlock($id, $label, $hlevel);
+			$block = new LayeredFormBlock($id, $label, $hlevel);
+			$block->setForm($this);
+			$this->blocks[$id] = $block;
 		}
 
 		return $this->blocks[$id];

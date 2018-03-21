@@ -11,11 +11,14 @@ class LayeredFormBlock{
 
 	protected $layout = null;
 
-	public function __construct($id, $label = '', $hlevel = self::DEFAULT_HEADER_LEVEL, $classes = 'layered-form-block'){
+	protected $form = null;
+
+	public function __construct($id, $label = '', $hlevel = self::DEFAULT_HEADER_LEVEL, $classes = 'layered-form-block', $form = null){
 		$this->id = $id;
 		$this->label = $label;
 		$this->headerLevel = $hlevel;
 		$this->layout = __DIR__ . '/Views/default_block_layout.tpl.php';
+		$this->form = $form;
 	}
 
 	public function getId(){
@@ -54,12 +57,19 @@ class LayeredFormBlock{
 		return $this->fields;
 	}
 
-    public function setClasses($classes){
-        $this->classes = $classes;
-    }
+	public function setClasses($classes){
+			$this->classes = $classes;
+	}
 
-    public function getClasses(){
-        return $this->classes;
-    }
+	public function getClasses(){
+			return $this->classes;
+	}
 
+	public function setForm($form){
+			$this->form = $form;
+	}
+
+	public function getForm(){
+			return $this->form;
+	}
 }
