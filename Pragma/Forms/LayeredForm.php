@@ -21,47 +21,49 @@ class LayeredForm extends Form{
 		'cancel_url' => null
 	];
 
+	const DEFAULT_NAME_BLOCK = 'default';
+
 	public function __construct($params = []){
 		parent::__construct($params);
-		$defaultBlock = new LayeredFormBlock('default');
+		$defaultBlock = new LayeredFormBlock(self::DEFAULT_NAME_BLOCK);
 		$defaultBlock->setForm($this);
-		$this->blocks['default'] = $defaultBlock;
+		$this->blocks[self::DEFAULT_NAME_BLOCK] = $defaultBlock;
 		$this->layout = __DIR__ . '/Views/default_form_layout.tpl.php';
 	}
 
-	public function add_text_field($params = [], $label = null, $block = 'default'){
+	public function add_text_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->text_field($params, true), $label);
 
 	}
-	public function add_password_field($params = [], $label = null, $block = 'default'){
+	public function add_password_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->password_field($params, true), $label);
 
 	}
-	public function add_hidden_field($params = [], $label = null, $block = 'default'){
+	public function add_hidden_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->hidden_field($params, true), $label);
 
 	}
-	public function add_file_field($params = [], $label = null, $block = 'default'){
+	public function add_file_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->file_field($params, true), $label);
 
 	}
-	public function add_textarea_field($params = [], $label = null, $block = 'default'){
+	public function add_textarea_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->textarea_field($params, true), $label);
 
 	}
-	public function add_select_field($params = [], $label = null, $block = 'default'){
+	public function add_select_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->select_field($params, true), $label);
 
 	}
-	public function add_checkbox_field($params = [], $label = null, $block = 'default'){
+	public function add_checkbox_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->checkbox_field($params, true), $label);
 
 	}
-	public function add_radio_field($params = [], $label = null, $block = 'default'){
+	public function add_radio_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->radio_field($params, true), $label);
 
 	}
-	public function add_submit_field($params = [], $label = null, $block = 'default'){
+	public function add_submit_field($params = [], $label = null, $block = self::DEFAULT_NAME_BLOCK){
 		$this->addField($block, $this->submit_field($params, true), $label);
 	}
 
