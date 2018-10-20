@@ -36,7 +36,9 @@ class Form{
 		if(array_key_exists($key, $this->params)){
 			return $this->params[$key];
 		}
-		else return null;
+		else{
+			return null;
+		}
 	}
 
 	public function __isset($key){
