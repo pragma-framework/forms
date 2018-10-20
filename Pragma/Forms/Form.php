@@ -46,8 +46,7 @@ class Form{
 	}
 
 	public function get_header(){
-		$header = '<form name="'.$this->name .'" id="'. $this->id .'" action="'. $this->action .'" method="' . $this->method .'" '. (( $this->enctype ) ? 'enctype="multipart/form-data"' : ''). ' '.$this->additional_attributes.' >';
-		return $header;
+		return '<form name="'.$this->name .'" id="'. $this->id .'" action="'. $this->action .'" method="' . $this->method .'" '. (( $this->enctype ) ? 'enctype="multipart/form-data"' : ''). ' '.$this->additional_attributes.' >';
 	}
 
 	public function close(){
