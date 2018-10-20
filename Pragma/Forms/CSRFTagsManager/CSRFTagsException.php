@@ -14,12 +14,6 @@ class CSRFTagsException extends \Exception{
 	const TAG_REQUESTED_MESS = 'CSRF Tag is missing';
 	const CONTROL_MISMATCH_MESS = 'A difference between params and the stored CSRF tag has been detected';
 
-
-
-	public function __constructor($message, $code = 0, \Exception $previous = null){
-		parent::__constructor($message, $code, $previous);
-	}
-
 	public function __toString(){
 		return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
 	}
