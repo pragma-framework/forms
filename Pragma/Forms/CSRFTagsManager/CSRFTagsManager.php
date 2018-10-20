@@ -90,8 +90,7 @@ class CSRFTagsManager{
 
 	//delete tokens when there are too old
 	public function cleanup(){
-		if( $this->limit != self::UNLIMITED_TAG){
-			if(!empty($this->tags))
+		if( $this->limit != self::UNLIMITED_TAG && !empty($this->tags)){
 			foreach($this->tags as $tag => $time){
 				if($time < strtotime('-'.$this->limit.' minutes')){
 					unset($this->tags[$tag]);
@@ -99,5 +98,4 @@ class CSRFTagsManager{
 			}
 		}
 	}
-
 }
