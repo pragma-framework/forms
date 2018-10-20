@@ -33,10 +33,8 @@ class AbstractCheckableField implements FieldsInterface{
 		}
 
 		$column = $this->db_field;
-		if( ! is_null($this->db_field) && ! empty($this->db_field) && ! is_null($object) && isset($object->$column)	&& $object->$column == $this->value){
-			$field .= ' checked="checked" ';
-		}
-		elseif( $this->checked ){
+		if((! is_null($this->db_field) && ! empty($this->db_field) && ! is_null($object) && isset($object->$column)	&& $object->$column == $this->value) ||
+			$this->checked){
 			$field .= ' checked="checked" ';
 		}
 
