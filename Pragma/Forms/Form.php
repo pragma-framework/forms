@@ -17,6 +17,7 @@ class Form{
 
 	protected $tag = null;
 	protected $boxes = [];
+	const REGEX_HOOKS = "/\[[^\]]*\]/";
 
 	public function __construct($params = []){
 		$this->params = array_merge($this->params, $params);
@@ -111,7 +112,7 @@ class Form{
 			//Special issue if the select is multiple : The field may not be present in the query
 			//if no option has been selected by the user
 			if($field->multiple){
-				$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+				$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 				if( ! isset($this->boxes[$rawname])){
 					$this->boxes[$rawname] = $rawname;
 					if(!$deferred){
@@ -128,7 +129,7 @@ class Form{
 		$html = "";
 		if(CSRFTagsManager::isEnabled()){
 			$this->tag->storeField($field->name);
-			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+			$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 			if( ! isset($this->boxes[$rawname])){
 				$this->boxes[$rawname] = $rawname;
 				if(!$deferred){
@@ -145,7 +146,7 @@ class Form{
 		$html = "";
 		if(CSRFTagsManager::isEnabled()){
 			$this->tag->storeField($field->name);
-			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+			$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 			if( ! isset($this->boxes[$rawname])){
 				$this->boxes[$rawname] = $rawname;
 				$html .= $this->hidden_field(['name' => $rawname]);
