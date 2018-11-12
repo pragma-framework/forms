@@ -12,7 +12,8 @@ class Form{
 		'method' => 'POST',
 		'additional_js' => '',
 		'enctype' => false,
-		'additional_attributes' => null
+		'additional_attributes' => null,
+		'csrf_tag_permanent' => false,
 	];
 
 	protected $tag = null;
@@ -22,7 +23,7 @@ class Form{
 		$this->params = array_merge($this->params, $params);
 
 		if(CSRFTagsManager::isEnabled()){
-			$this->tag = CSRFTagsManager::getManager()->prepareTag();
+			$this->tag = CSRFTagsManager::getManager()->prepareTag($this->params['csrf_tag_permanent']);
 		}
 	}
 
