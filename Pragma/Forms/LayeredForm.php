@@ -18,7 +18,8 @@ class LayeredForm extends Form{
 		'additional_js' => '',
 		'enctype' => false,
 		'additional_attributes' => null,
-		'cancel_url' => null
+		'cancel_url' => null,
+		'csrf_tag_permanent' => false
 	];
 
 	public function __construct($params = []){
