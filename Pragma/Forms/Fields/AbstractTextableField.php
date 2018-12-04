@@ -26,17 +26,21 @@ class AbstractTextableField implements FieldsInterface{
 	public function render(){
 		$object = isset($this->form) && !empty($this->form->object) ? $this->form->object : null;
 		$field =  '<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->id.'" ';
-		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';
+		if( ! is_null($this->classes) && ! empty($this->classes) ){
+			$field .= ' class="'.$this->classes.'" ';
+		}
 		$column = $this->db_field;
 		if( ! is_null($this->db_field) && ! empty($this->db_field) && ! is_null($object) && isset($object->$column) ){
 			$field .= ' value="'.str_replace('"', '&quot;', $object->$column).'" ';
 		}
-		else if( ! is_null($this->value) && isset($this->value)){
+		elseif( ! is_null($this->value) && isset($this->value)){
 			$field .= ' value="'.str_replace('"', '&quot;', $this->value).'" ';
 		}
 
 		$field .= ' '.$this->additional_attributes. ' />';
-		if( ! is_null($this->dom_extension) ) $field .= $this->dom_extension;
+		if( ! is_null($this->dom_extension) ){
+			$field .= $this->dom_extension;
+		}
 
 		return $field;
 	}

@@ -16,7 +16,9 @@ trait FieldsTrait{
 
 		if(!empty($params)){
 			$this->params = array_merge($this->params, $params);
-			if(is_null($this->id) || empty($this->id) && !empty($this->name)) $this->id = $this->name;
+			if(is_null($this->id) || empty($this->id) && !empty($this->name)){
+				$this->id = $this->name;
+			}
 		}
 	}
 
@@ -33,7 +35,9 @@ trait FieldsTrait{
 		if(array_key_exists($key, $this->params)){
 			return $this->params[$key];
 		}
-		else return null;
+		else{
+			return null;
+		}
 	}
 
 	public function __isset($key){

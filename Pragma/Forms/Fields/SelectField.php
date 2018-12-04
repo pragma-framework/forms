@@ -29,8 +29,12 @@ class SelectField implements FieldsInterface{
 		}
 
 		$field = '<select name="'.$this->name.'" id="'.$this->id.'" ';
-		if( ! is_null($this->classes) && ! empty($this->classes) ) $field .= ' class="'.$this->classes.'" ';
-		if($this->multiple) $field .= ' multiple="true" ';
+		if( ! is_null($this->classes) && ! empty($this->classes) ){
+			$field .= ' class="'.$this->classes.'" ';
+		}
+		if($this->multiple){
+			$field .= ' multiple="true" ';
+		}
 		$field .= ' '.$this->additional_attributes. '>';
 
 		if(!is_null($this->empty_message)){ //the message can be empty if it's the developper's wish.
@@ -55,35 +59,31 @@ class SelectField implements FieldsInterface{
 
 			if(is_array($first)){ // handle groups
 				foreach($this->options as $val => $label){
-					$field .= '<optgroup label="'.htmlentities($val).'">';
-					foreach($label as $v => $l){
-						$selected = '';
-						if( $db_field_exploitable && $object->$column == $v){
-							$selected = ' selected="selected" ';
-						}
-						else if($need_value && !is_null($this->value) && ! is_array($this->value) && $this->value == $v) $selected = ' selected="selected" ';
-						else if($need_value && !is_null($this->value) && is_array($this->value) && isset($this->value[$v]) ) $selected = ' selected="selected" ';
-						$field .= '<option value="'.htmlentities($v).'" '.$selected.'>'.$l.'</option>';
-					}
-					$field .= '</optgroup>';
-					$selected = '';
+					$field .= '<optgroup label="'.htmlentities($val).'">' . $this->buildFieldsOption($label, $need_value, $db_field_exploitable) . '</optgroup>';
 				}
 			}else{
-				foreach($this->options as $val => $label){
-
-					$selected = '';
-					if( $db_field_exploitable && $object->$column == $val){
-						$selected = ' selected="selected" ';
-					}
-					else if($need_value && !is_null($this->value) && ! is_array($this->value) && $this->value == $val) $selected = ' selected="selected" ';
-					else if($need_value && !is_null($this->value) && is_array($this->value) && isset($this->value[$val]) ) $selected = ' selected="selected" ';
-					$field .= '<option value="'.htmlentities($val).'" '.$selected.'>'.$label.'</option>';
-				}
+				$field .= $this->buildFieldsOption($this->options, $need_value, $db_field_exploitable);
 			}
 		}
 		$field .= '</select>';
-		if( ! is_null($this->dom_extension) ) $field .= $this->dom_extension;
+		if( ! is_null($this->dom_extension) ){
+			$field .= $this->dom_extension;
+		}
 
+		return $field;
+	}
+
+	protected function buildFieldsOption($options, $need_value, $db_field_exploitable){
+		$field = '';
+		foreach($options as $val => $label){
+			$selected = '';
+			if(($db_field_exploitable && $object->$column == $val) ||
+				($need_value && !is_null($this->value) && ! is_array($this->value) && $this->value == $val) ||
+				($need_value && !is_null($this->value) && is_array($this->value) && isset($this->value[$val]))){
+				$selected = ' selected="selected" ';
+			}
+			$field .= '<option value="'.htmlentities($val).'" '.$selected.'>'.$label.'</option>';
+		}
 		return $field;
 	}
 }
