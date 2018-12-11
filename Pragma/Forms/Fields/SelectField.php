@@ -59,10 +59,10 @@ class SelectField implements FieldsInterface{
 
 			if(is_array($first)){ // handle groups
 				foreach($this->options as $val => $label){
-					$field .= '<optgroup label="'.htmlentities($val).'">' . $this->buildFieldsOption($label, $need_value, $db_field_exploitable) . '</optgroup>';
+					$field .= '<optgroup label="'.htmlentities($val).'">' . $this->buildFieldsOption($label, $need_value) . '</optgroup>';
 				}
 			}else{
-				$field .= $this->buildFieldsOption($this->options, $need_value, $db_field_exploitable);
+				$field .= $this->buildFieldsOption($this->options, $need_value);
 			}
 		}
 		$field .= '</select>';
@@ -73,8 +73,11 @@ class SelectField implements FieldsInterface{
 		return $field;
 	}
 
-	protected function buildFieldsOption($options, $need_value, $db_field_exploitable){
+	protected function buildFieldsOption($options, $need_value){
 		$field = '';
+		$object = isset($this->form) && !empty($this->form->object) ? $this->form->object : null;
+		$column = $this->db_field;
+		$db_field_exploitable = ! is_null($this->db_field) && ! empty($this->db_field) && ! is_null($object) && isset($object->$column);
 		foreach($options as $val => $label){
 			$selected = '';
 			if(($db_field_exploitable && $object->$column == $val) ||
