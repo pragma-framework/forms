@@ -14,15 +14,18 @@ class Form{
 		'enctype' => false,
 		'additional_attributes' => null,
 		'csrf_tag_permanent' => false,
+		'csrf_get_disabled' => false,//use carefully
 	];
 
 	protected $tag = null;
 	protected $boxes = [];
+	private $csrf_protection_active = true;
 
 	public function __construct($params = []){
 		$this->params = array_merge($this->params, $params);
 
-		if(CSRFTagsManager::isEnabled()){
+		$this->csrf_protection_active = CSRFTagsManager::isEnabled() && (strtoupper($this->method) != 'GET' || ! $this->csrf_get_disabled);
+		if($this->csrf_protection_active){
 			$this->tag = CSRFTagsManager::getManager()->prepareTag($this->params['csrf_tag_permanent']);
 		}
 	}
@@ -52,7 +55,7 @@ class Form{
 	public function close(){
 		$js = empty($this->additional_js) ? '' : '<script type="text/javascript">'.$this->additional_js.'</script>';
 		$csrf = '';
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			CSRFTagsManager::getManager()->storeTag($this->tag);
 			$csrf = $this->hidden_field(['name' => CSRFTagsManager::CSRF_TAG_NAME, 'value' => $this->tag->getTag()]);
 		}
@@ -65,7 +68,7 @@ class Form{
 
 	public function text_field($params = [], $deferred = false){
 		$field = Fields\TextField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;
@@ -73,7 +76,7 @@ class Form{
 
 	public function password_field($params = [], $deferred = false){
 		$field = Fields\PasswordField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;
@@ -81,7 +84,7 @@ class Form{
 
 	public function hidden_field($params = [], $deferred = false){
 		$field = Fields\HiddenField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;
@@ -89,7 +92,7 @@ class Form{
 
 	public function file_field($params = [], $deferred = false){
 		$field = Fields\FileField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;
@@ -97,7 +100,7 @@ class Form{
 
 	public function textarea_field($params = [], $deferred = false){
 		$field = Fields\TextareaField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;
@@ -106,7 +109,7 @@ class Form{
 	public function select_field($params = [], $deferred = false){
 		$field = Fields\SelectField::getField($params)->setForm($this);
 		$html = "";
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 			//Special issue if the select is multiple : The field may not be present in the query
 			//if no option has been selected by the user
@@ -126,7 +129,7 @@ class Form{
 	public function checkbox_field($params = [], $deferred = false){
 		$field = Fields\CheckboxField::getField($params)->setForm($this);
 		$html = "";
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
 			if( ! isset($this->boxes[$rawname])){
@@ -143,7 +146,7 @@ class Form{
 	public function radio_field($params = [], $deferred = false){
 		$field = Fields\RadioField::getField($params)->setForm($this);
 		$html = "";
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
 			if( ! isset($this->boxes[$rawname])){
@@ -157,7 +160,7 @@ class Form{
 
 	public function submit_field($params = [], $deferred = false){
 		$field = Fields\SubmitField::getField($params)->setForm($this);
-		if(CSRFTagsManager::isEnabled()){
+		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
 		}
 		return ! $deferred ? $field->render() : $field;

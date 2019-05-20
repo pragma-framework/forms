@@ -19,7 +19,8 @@ class LayeredForm extends Form{
 		'enctype' => false,
 		'additional_attributes' => null,
 		'cancel_url' => null,
-		'csrf_tag_permanent' => false
+		'csrf_tag_permanent' => false,
+		'csrf_get_disabled' => false,//use carefully
 	];
 
 	public function __construct($params = []){
