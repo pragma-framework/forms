@@ -19,6 +19,7 @@ class Form{
 
 	protected $tag = null;
 	protected $boxes = [];
+	const REGEX_HOOKS = "/\[[^\]]*\]/";
 	private $csrf_protection_active = true;
 
 	public function __construct($params = []){
@@ -40,7 +41,9 @@ class Form{
 		if(array_key_exists($key, $this->params)){
 			return $this->params[$key];
 		}
-		else return null;
+		else{
+			return null;
+		}
 	}
 
 	public function __isset($key){
@@ -48,8 +51,7 @@ class Form{
 	}
 
 	public function get_header(){
-		$header = '<form name="'.$this->name .'" id="'. $this->id .'" action="'. $this->action .'" method="' . $this->method .'" '. (( $this->enctype ) ? 'enctype="multipart/form-data"' : ''). ' '.$this->additional_attributes.' >';
-		return $header;
+		return '<form name="'.$this->name .'" id="'. $this->id .'" action="'. $this->action .'" method="' . $this->method .'" '. (( $this->enctype ) ? 'enctype="multipart/form-data"' : ''). ' '.$this->additional_attributes.' >';
 	}
 
 	public function close(){
@@ -114,7 +116,7 @@ class Form{
 			//Special issue if the select is multiple : The field may not be present in the query
 			//if no option has been selected by the user
 			if($field->multiple){
-				$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+				$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 				if( ! isset($this->boxes[$rawname])){
 					$this->boxes[$rawname] = $rawname;
 					if(!$deferred){
@@ -131,7 +133,7 @@ class Form{
 		$html = "";
 		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
-			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+			$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 			if( ! isset($this->boxes[$rawname])){
 				$this->boxes[$rawname] = $rawname;
 				if(!$deferred){
@@ -148,7 +150,7 @@ class Form{
 		$html = "";
 		if($this->csrf_protection_active){
 			$this->tag->storeField($field->name);
-			$rawname = preg_replace("/\[[^\]]*\]/","", $field->name);
+			$rawname = preg_replace(self::REGEX_HOOKS,"", $field->name);
 			if( ! isset($this->boxes[$rawname])){
 				$this->boxes[$rawname] = $rawname;
 				$html .= $this->hidden_field(['name' => $rawname]);
