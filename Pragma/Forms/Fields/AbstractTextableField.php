@@ -16,7 +16,7 @@ class AbstractTextableField implements FieldsInterface{
 		'dom_extension' =>  null
 	];
 
-	protected $typeinput = null;
+	protected $type = null;
 
 	public function setType($type){
 		$this->type = $type;
